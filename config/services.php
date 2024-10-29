@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'channelengine' => [
+        'api_url' => env('CHANNEL_ENGINE_API_URL', 'https://api-dev.channelengine.net/api'),
+        'api_key' => env('CHANNEL_ENGINE_API_KEY'),
+    ],
 ];
