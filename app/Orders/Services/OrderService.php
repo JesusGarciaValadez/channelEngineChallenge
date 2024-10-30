@@ -5,6 +5,7 @@ namespace App\Orders\Services;
 use App\OrderLines\Models\OrderLine;
 use App\Orders\Models\Order;
 use Exception;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class OrderService
@@ -28,7 +29,7 @@ class OrderService
             'statuses' => 'IN_PROGRESS',
         ]);
 
-        if ($response->successful()) {
+        if ($this->responseIsSuccessful($response)) {
             $orders = $response->json()['Content'] ?? [];
 
             foreach($orders as $orderData) {
@@ -58,5 +59,26 @@ class OrderService
         }
 
         throw new Exception('Failed to fetch orders in progress.');
+    }
+
+    private function responseIsSuccessful(Response $response): bool
+    {
+        if ($response->failed()) {
+            return false;
+        }
+
+        if (!isset($response->json()['Content'])) {
+            return false;
+        }
+
+        if (!is_array($response->json()['Content'])) {
+            return false;
+        }
+
+        if (empty($response->json()['Content'])) {
+            return false;
+        }
+
+        return true;
     }
 }

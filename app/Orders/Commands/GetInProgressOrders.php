@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class GetInProgressOrders extends Command
 {
-    protected $signature = 'orders:fetch-in-progress';
+    protected $signature = 'orders:get-in-progress-orders';
     protected $description = 'Fetch all orders with status IN_PROGRESS from ChannelEngine.';
 
     protected OrderService $orderService;

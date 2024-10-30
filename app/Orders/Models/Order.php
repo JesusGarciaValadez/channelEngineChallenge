@@ -30,15 +30,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Order extends Model
 {
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'created_at_api' => 'datetime',
-    ];
-
     protected $fillable = [
         'channel_order_no',
         'status',
@@ -50,13 +41,5 @@ class Order extends Model
     public function lines(): HasMany
     {
         return $this->hasMany(OrderLine::class);
-    }
-
-    /**
-     * Scope a query to only include popular users.
-     */
-    public function scopePopular(Builder $query): void
-    {
-        $query->where('votes', '>', 100);
     }
 }
