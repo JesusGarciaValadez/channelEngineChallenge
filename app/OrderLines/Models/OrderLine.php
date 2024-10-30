@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @method static updateOrCreate(array $array, array $array1)
  * @method static withSum(string $string)
@@ -50,6 +50,11 @@ class OrderLine extends Model
         'channel_product_no',
         'stock_location_id',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'merchant_product_no';
+    }
 
     /**
      * @return BelongsTo

@@ -12,9 +12,9 @@ class OrderLineRepository
      */
     public function getTopFiveSellingProducts(): Collection
     {
-        return OrderLine::select('id', 'gtin', 'description')
+        return OrderLine::select('gtin', 'description', 'merchant_product_no')
             ->selectRaw('SUM(quantity) as total_quantity_sold')
-            ->groupBy('id', 'gtin', 'description')
+            ->groupBy('merchant_product_no', 'description', 'gtin')
             ->orderByDesc('total_quantity_sold')
             ->limit(5)
             ->get();

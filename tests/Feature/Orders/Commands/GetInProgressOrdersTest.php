@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Orders\Commands;
+namespace Tests\Feature\Orders\Commands;
 
 use App\Orders\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -36,7 +36,7 @@ class OrderLineController extends Controller
     public function update(Request $request, OrderLine $orderLine): RedirectResponse
     {
         try {
-            $result = $this->orderLineService->updateProductStock($orderLine, 25);
+            $result = $this->orderLineService->updateProductStock($orderLine->merchant_product_no, $orderLine->stock_location_id, 25);
         } catch (ConnectionException $e) {
             return redirect()->back()
                 ->with('status', 'error')

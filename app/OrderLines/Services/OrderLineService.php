@@ -22,22 +22,30 @@ class OrderLineService
      * @param OrderLine $orderLine
      * @return int
      * @throws ConnectionException
+     * @throws \Throwable
      */
-    public function getProductStock(OrderLine $orderLine): int
+    public function getProductStock(string $merchant_product_no, int $stock_location_id): int
     {
         try{
             $response = Http::withQueryParameters([
                 'apikey' => $this->apiKey,
-                'stockLocationIds' => $orderLine->stock_location_id,
+                'stockLocationIds' => $stock_location_id,
             ])
                 ->get("{$this->apiUrl}/v2/offer/stock");
         } catch (ConnectionException $e) {
             return 0;
         }
 
+        throw_if(!$response->successful(), ConnectionException::class);
+        throw_if(!isset($response->json()['Content']), ConnectionException::class);
+
+        if (empty($response->json()['Content'])) {
+            return 0;
+        }
+
         return Collection::make($response->json()['Content'])
-            ->filter(function ($stockLocation) use ($orderLine) {
-                return $stockLocation['MerchantProductNo'] === $orderLine->merchant_product_no;
+            ->filter(function ($stockLocation) use ($merchant_product_no) {
+                return $stockLocation['MerchantProductNo'] === $merchant_product_no;
             })
             ->first()['Stock'] ?? 0;
     }
@@ -48,17 +56,17 @@ class OrderLineService
      * @return bool
      * @throws ConnectionException
      */
-    public function updateProductStock(OrderLine $orderLine, int $stock): bool
+    public function updateProductStock(string $merchant_product_no, int $stock_location_id, int $stock): bool
     {
-        $currentStock = $this->getProductStock($orderLine);
+        $currentStock = $this->getProductStock($merchant_product_no, $stock_location_id);
 
         try {
             $bodyRequest = [
-                "MerchantProductNo" => $orderLine->merchant_product_no,
+                "MerchantProductNo" => $merchant_product_no,
                 "StockLocations" => [
                     [
                         "Stock" => $currentStock + $stock,
-                        "StockLocationId" => $orderLine->stock_location_id
+                        "StockLocationId" => $stock_location_id
                     ]
                 ]
             ];

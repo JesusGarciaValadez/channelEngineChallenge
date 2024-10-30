@@ -12,5 +12,5 @@ Route::get('/', static function (): Factory|\Illuminate\Contracts\View\View|Appl
 
 Route::prefix('order-lines')->group(function (): void {
     Route::get('/', [OrderLineController::class, 'index'])->name('order_lines.index');
-    Route::put('/{orderLine}/update-stock', [OrderLineController::class, 'update'])->name('order_lines.update');
+    Route::put('/{orderLine:merchant_product_no}/update-stock', [OrderLineController::class, 'update'])->name('order_lines.update');
 });

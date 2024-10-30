@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>
-        StartSelect coding test
+        ChannelEngine coding test
     </x-slot>
 
     <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
@@ -66,8 +66,10 @@
                                                         </td>
                                                         <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-900
                                                         text-right">
-                                                            <form action="{{ route('order_lines.update',
-                                                            $product->id) }}" method="POST">
+                                                            <form
+                                                                action="{{ route('order_lines.update', $product->merchant_product_no) }}"
+                                                                method="POST"
+                                                            >
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <button
