@@ -1,4 +1,4 @@
-# README.txt
+# README
 
 ## Project Overview
 
@@ -105,6 +105,14 @@ Run the database migrations to create the necessary tables:
 php artisan migrate
 ```
 
+### 7. Run Command
+
+Run the following command to fill the necessary tables:
+
+```bash
+php artisan orders:get-in-progress-orders
+```
+
 ## Running the Application
 
 Start the Laravel development server:
@@ -113,7 +121,7 @@ Start the Laravel development server:
 php artisan serve
 ```
 
-The application will be accessible at `http://localhost:8000`.
+The application will be accessible at `http://localhost:8000/order-lines`.
 
 ## Running Unit Tests
 
@@ -164,7 +172,7 @@ The unit tests mock external API calls using Laravel's `Http` facade. This ensur
 
 ### API Key and URL
 
-Ensure that your `CHANNELENGINE_API_KEY` and `CHANNELENGINE_API_URL` are correctly set in your `.env` file. Without these, API calls will fail.
+Ensure that your `CHANNEL_ENGINE_API_KEY` and `CHANNEL_ENGINE_API_URL` are correctly set in your `.env` file. Without these, API calls will fail.
 
 ### Contact Information
 
@@ -208,12 +216,20 @@ If you encounter any issues or have questions, please contact the project mainta
   ```bash
   php artisan migrate
   ```
+  
+- Run Command:
+
+  ```bash
+    php artisan orders:get-in-progress-orders
+  ```
 
 - Run the Application:
 
   ```bash
   php artisan serve
   ```
+  
+The application will be accessible at `http://localhost:8000/order-lines`.
 
 - Run Tests:
 

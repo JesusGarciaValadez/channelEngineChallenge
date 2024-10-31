@@ -6,6 +6,7 @@ use App\OrderLines\Models\OrderLine;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Throwable;
 
 class OrderLineService
 {
@@ -19,10 +20,10 @@ class OrderLineService
     }
 
     /**
-     * @param OrderLine $orderLine
+     * @param string $merchant_product_no
+     * @param int $stock_location_id
      * @return int
-     * @throws ConnectionException
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function getProductStock(string $merchant_product_no, int $stock_location_id): int
     {
@@ -51,10 +52,11 @@ class OrderLineService
     }
 
     /**
-     * @param OrderLine $orderLine
+     * @param string $merchant_product_no
+     * @param int $stock_location_id
      * @param int $stock
      * @return bool
-     * @throws ConnectionException
+     * @throws Throwable
      */
     public function updateProductStock(string $merchant_product_no, int $stock_location_id, int $stock): bool
     {
